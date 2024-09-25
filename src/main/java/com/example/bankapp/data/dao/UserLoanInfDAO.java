@@ -27,7 +27,6 @@ public class UserLoanInfDAO {
         return listOfEntities;
     }
 
-    @Transactional
     public void saveCustomer(UserLoanInf userLoanInf) {
         Session currentSession = sessionFactory.openSession();
         currentSession.beginTransaction();
