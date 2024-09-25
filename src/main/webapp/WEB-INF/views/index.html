@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Главная страница</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        .container {
+            background-color: white;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+        .secondary-button {
+            background-color: #008CBA;
+        }
+        .secondary-button:hover {
+            background-color: #007BB5;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Добро пожаловать</h1>
+    <p>Пожалуйста, выберите одно из доступных действий:</p>
+
+    <a href="/new" class="button">Оформить новую заявку на кредит</a>
+
+    <h2>Дополнительные функции</h2>
+
+    <a href="/clients" class="button secondary-button">Список всех клиентов</a>
+
+    <a href="/search-client" class="button secondary-button">Поиск клиента (по телефону, ФИО, паспортным данным)</a>
+
+    <a href="/approved-applications" class="button secondary-button">Список заявок со статусом одобрения</a>
+
+    <a href="/signed-contracts" class="button secondary-button">Список подписанных кредитных договоров</a>
+</div>
+
+</body>
+</html>

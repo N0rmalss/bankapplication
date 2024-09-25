@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Список клиентов</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      padding: 20px;
+    }
+    .button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 5px;
+      margin-top: 20px;
+      font-size: 18px;
+    }
+    .container {
+      background-color: white;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    table, th, td {
+      border: 1px solid #ddd;
+    }
+    th, td {
+      padding: 10px;
+      text-align: left;
+    }
+    th {
+      background-color: #4CAF50;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Список всех клиентов</h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID клиента</th>
+        <th>ФИО</th>
+        <th>Паспорт</th>
+        <th>Телефон</th>
+        <th>Адрес</th>
+      </tr>
+    </thead>
+    <tbody id="client-list">
+    </tbody>
+  </table>
+</div>
+
+<a href="/" class="button" >Вернуться на главную</a>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    fetch('/api/clients')
+      .then(response => response.json())
+      .then(data => {
+        const clientList = document.getElementById('client-list');
+        data.forEach(client => {
+          const row = `<tr>
+                         <td>${client.id}</td>
+                         <td>${client.fullName}</td>
+                         <td>${client.passport}</td>
+                         <td>${client.phone}</td>
+                         <td>${client.address}</td>
+                       </tr>`;
+          clientList.innerHTML += row;
+        });
+      })
+      .catch(error => console.error('Error:', error));
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Заявка на кредит</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #555;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Оформление заявки на кредит</h1>
+    <form action="/submit-application" method="POST">
+        <!-- ФИО -->
+        <label for="fullName">Фамилия, имя, отчество:</label>
+        <input type="text" id="fullName" name="fullName" placeholder="Введите ФИО" required pattern="[А-Яа-яЁё\s]+" title="ФИО должно содержать только кириллические символы и пробелы">
+
+        <!-- Паспортные данные -->
+        <label for="passport">Паспортные данные:</label>
+        <input type="text" id="passport" name="passport" placeholder="Введите серию и номер паспорта" required pattern="\d{4}\s\d{6}" title="Формат паспорта должен быть: 4 цифры серии и 6 цифр номера (например, 1234 567890)">
+
+        <!-- Семейное положение -->
+        <label for="maritalStatus">Семейное положение:</label>
+        <select id="maritalStatus" name="maritalStatus" required>
+            <option value="">Выберите семейное положение</option>
+            <option value="Не женат/Не замужем">Не женат/Не замужем</option>
+            <option value="Женат/Замужем<">Женат/Замужем</option>
+            <option value="Разведен/Разведена">Разведен/Разведена</option>
+            <option value="Вдовец/Вдова">Вдовец/Вдова</option>
+        </select>
+
+        <!-- Адрес прописки -->
+        <label for="address">Адрес прописки:</label>
+        <input type="text" id="address" name="address" placeholder="Введите адрес прописки" required pattern="^[А-Яа-яЁё0-9,\.\-\s]+$" title="Адрес должен содержать только кириллические символы, цифры, пробелы, запятые и точки.">
+
+        <!-- Контактный телефон -->
+        <label for="phone">Контактный телефон:</label>
+        <input type="tel" id="phone" name="phone" placeholder="Введите номер телефона" required pattern="^\+7\s?\(?\d{3}\)?\s?\d{3}[-\s]?\d{2}[-\s]?\d{2}$" title="Введите телефон в формате +7 (999) 999-99-99 или +7 999 999 99 99">
+
+        <!-- Сведения о занятости -->
+        <h2>Сведения о занятости</h2>
+        <label for="employmentPeriod">Период работы:</label>
+        <input type="text" id="employmentPeriod" name="employmentPeriod" placeholder="Введите период работы" required>
+
+        <label for="position">Должность:</label>
+        <input type="text" id="position" name="position" placeholder="Введите вашу должность" required>
+
+        <label for="organization">Название организации:</label>
+        <input type="text" id="organization" name="organization" placeholder="Введите название организации" required>
+
+        <!-- Сумма желаемого кредита -->
+        <label for="loanAmount">Сумма желаемого кредита:</label>
+        <input type="number" id="loanAmount" name="loanAmount" placeholder="Введите сумму кредита" required min="10000" max="1000000" title="Сумма кредита должна быть от 10 000 до 1 000 000 рублей">
+
+        <!-- Кнопка отправки -->
+        <button type="submit">Отправить заявку</button>
+    </form>
+</div>
+
+</body>
+</html>

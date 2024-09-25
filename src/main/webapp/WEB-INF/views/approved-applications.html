@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Список заявок со статусом одобрения</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      padding: 20px;
+    }
+    .button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 5px;
+      margin-top: 20px;
+      font-size: 18px;
+    }
+
+    .container {
+      background-color: white;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    table, th, td {
+      border: 1px solid #ddd;
+    }
+    th, td {
+      padding: 10px;
+      text-align: left;
+    }
+    th {
+      background-color: #4CAF50;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Заявки со статусом одобрения</h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID заявки</th>
+        <th>ФИО клиента</th>
+        <th>Сумма кредита</th>
+        <th>Срок</th>
+      </tr>
+    </thead>
+    <tbody id="application-list">
+    </tbody>
+  </table>
+</div>
+<a href="/" class="button" >Вернуться на главную</a>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    fetch('/api/applications/approved')
+      .then(response => response.json())
+      .then(data => {
+        const applicationList = document.getElementById('application-list');
+        data.forEach(application => {
+          const row = `<tr>
+                         <td>${application.id}</td>
+                         <td>${application.userLoan.fullName}</td>
+                         <td>${application.loanAmountDecision} руб.</td>
+                         <td>${application.loanTime} мес.</td>
+                       </tr>`;
+          applicationList.innerHTML += row;
+        });
+      })
+      .catch(error => console.error('Error:', error));
+  });
+</script>
+
+</body>
+</html>

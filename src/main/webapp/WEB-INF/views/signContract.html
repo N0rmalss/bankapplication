@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Кредитный договор</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      padding: 20px;
+    }
+    .container {
+      background-color: white;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    .details {
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+    .button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 5px;
+      margin-top: 20px;
+      font-size: 18px;
+    }
+    .button:hover {
+      background-color: #45a049;
+    }
+    .status {
+      font-size: 18px;
+      margin-top: 20px;
+    }
+    .signed {
+      color: #4CAF50;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Кредитный договор</h1>
+
+  <div class="details">
+    <strong>ФИО клиента:</strong> <p th:text="${contract.loanRequest.userLoan.fullName}">Иван Иванов</p>
+  </div>
+
+  <div class="details">
+    <strong>Паспорт:</strong> <p th:text="${contract.loanRequest.userLoan.passport}">45 12 345678</p>
+  </div>
+
+  <div class="details">
+    <strong>Семейное положение:</strong> <p th:text="${contract.loanRequest.userLoan.maritalStatus}">Холост</p>
+  </div>
+
+  <div class="details">
+    <strong>Адрес:</strong> <p th:text="${contract.loanRequest.userLoan.address}">Москва, ул. Ленина, д. 1</p>
+  </div>
+
+  <div class="details">
+    <strong>Телефон:</strong> <p th:text="${contract.loanRequest.userLoan.phone}">+7 123 456-78-90</p>
+  </div>
+
+  <div class="details">
+    <strong>Период работы:</strong> <p th:text="${contract.loanRequest.userLoan.employmentPeriod}">5 лет</p>
+  </div>
+
+  <div class="details">
+    <strong>Должность:</strong> <p th:text="${contract.loanRequest.userLoan.position}">Менеджер</p>
+  </div>
+
+  <div class="details">
+    <strong>Организация:</strong> <p th:text="${contract.loanRequest.userLoan.organization}">ООО "Компания"</p>
+  </div>
+
+  <div class="details">
+    <strong>Сумма кредита:</strong> <p th:text="${contract.loanRequest.loanAmountDecision } +' ' + руб.">500,000 руб.</p>
+  </div>
+
+  <div class="details">
+    <strong>Срок кредита:</strong> <p th:text="${contract.loanRequest.loanTime } +' ' +  мес.">12 месяцев</p>
+  </div>
+
+  <div class="details">
+    <strong>Дата подписания:</strong> <p th:text="${contract.dateSigning}">Не подписан</p>
+  </div>
+
+  <div  th:classappend="${contract.signatureStatus} ? 'signed' : ''">
+    <strong>Статус подписи:</strong> <span id="contract-status" class="status" th:text="${contract.signatureStatus ? 'Подписан' : 'Не подписан'}">Не подписан</span>
+  </div>
+
+  <a href="#" class="button" th:if="${!contract.signatureStatus}" onclick="signContract()">Подписать договор</a>
+
+  <a href="/" class="button" th:if="${contract.signatureStatus}">Вернуться на главную</a>
+
+</div>
+
+<script>
+  function signContract() {
+    const path = window.location.pathname;
+    const pathParts = path.split('/');
+    const contractId = pathParts[2];
+
+    fetch('/sign-contract', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: `intValue=${contractId}`,
+    })
+            .then(response => {
+              if (response.ok) {
+                location.reload();
+              } else {
+                alert("Failed to sign contract.");
+              }
+            })
+            .catch(error => {
+              alert("Error: " + error);
+            });
+  }
+</script>
+
+</body>
+</html>

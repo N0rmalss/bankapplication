@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Решение о статусе одобрения кредита</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      padding: 20px;
+    }
+    .container {
+      background-color: white;
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      color: #4CAF50;
+      text-align: center;
+    }
+    .status {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+    .details {
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+    .button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 5px;
+      margin-top: 20px;
+      font-size: 18px;
+    }
+    .button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Статус кредита</h1>
+
+  <div class="status">
+    <strong>Статус:</strong> <p th:text="${loanApplication.loanDecision}">Одобрен</p>
+  </div>
+
+  <div class="details">
+    <strong>Предлагаемый срок:</strong> <p th:text="${loanApplication.loanTime}">12 месяцев</p>
+  </div>
+
+  <div class="details">
+    <strong>Одобренная сумма:</strong> <p th:text="${loanApplication.loanAmountDecision}">500,000 руб.</p>
+  </div>
+
+  <a href="/signСontract" class="button" th:href="@{'signСontract/' + ${loanApplication.id}}">Перейти к подписанию договора</a>
+
+</div>
+
+</body>
+</html>
